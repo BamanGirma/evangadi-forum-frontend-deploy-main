@@ -3,7 +3,7 @@ const port = import.meta.env.VITE_PORT
 
 
 const axiosInstance = axios.create({
-  baseURL: `http://localhost:5500/api`,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 export default axiosInstance;
