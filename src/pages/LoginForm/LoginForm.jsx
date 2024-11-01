@@ -3,14 +3,14 @@ import classes from "./LoginForm.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../axios/axiosConfig";
 import Auth from "../../components/auth/Auth";
-import { ClipLoader } from "react-spinners"; 
+import { ClipLoader } from "react-spinners";
 
 function LoginForm({ setIsAuthenticated, isAuthenticated }) {
   const navigate = useNavigate();
   const emailDom = useRef();
   const passwordDom = useRef();
-  const [errorMessage, setErrorMessage] = useState(""); 
-  const [successMessage, setSuccessMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function LoginForm({ setIsAuthenticated, isAuthenticated }) {
 
     if (!email || !password) {
       setErrorMessage("Please enter both email and password.");
-      setSuccessMessage(""); 
+      setSuccessMessage("");
       return;
     }
 
@@ -44,15 +44,16 @@ function LoginForm({ setIsAuthenticated, isAuthenticated }) {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify({ username }));
 
-      setSuccessMessage("Login successful!"); 
+      setSuccessMessage("Login successful!");
       setErrorMessage("");
       navigate("/");
       emailDom.current.value = "";
       passwordDom.current.value = "";
     } catch (error) {
-      const errorMessage = error.response?.data?.msg || error.message || "An error occurred.";
-      setErrorMessage("Login failed: " + errorMessage); 
-      setSuccessMessage(""); 
+      const errorMessage =
+        error.response?.data?.msg || error.message || "An error occurred.";
+      setErrorMessage("Login failed: " + errorMessage);
+      setSuccessMessage("");
     } finally {
       setLoading(false);
     }
@@ -63,8 +64,16 @@ function LoginForm({ setIsAuthenticated, isAuthenticated }) {
       <div className={classes.login__form__container}>
         <div className={classes.login__form__wrapper}>
           <h3>Login to your account</h3>
-          {errorMessage && <p className={classes.errorMessage} aria-live="assertive">{errorMessage}</p>} 
-          {successMessage && <p className={classes.successMessage} aria-live="polite">{successMessage}</p>}
+          {errorMessage && (
+            <p className={classes.errorMessage} aria-live="assertive">
+              {errorMessage}
+            </p>
+          )}
+          {successMessage && (
+            <p className={classes.successMessage} aria-live="polite">
+              {successMessage}
+            </p>
+          )}
           <p className={classes.option}>
             Don’t have an account?{" "}
             <Link to="/register">Create a new account</Link>
@@ -85,8 +94,16 @@ function LoginForm({ setIsAuthenticated, isAuthenticated }) {
             <div className={classes.forgot__pass}>
               <Link to="/forgot-password">Forgot password?</Link>
             </div>
-            <button className={classes.join_btn} type="submit" disabled={loading}>
-              {loading ? <ClipLoader size={26} color="#fff" loading={loading} /> : "Login"}
+            <button
+              className={classes.join_btn}
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <ClipLoader size={26} color="#fff" loading={loading} />
+              ) : (
+                "Login"
+              )}
             </button>
           </form>
         </div>
@@ -95,4 +112,4 @@ function LoginForm({ setIsAuthenticated, isAuthenticated }) {
   );
 }
 
-export default LoginForm;  
+export default LoginForm;

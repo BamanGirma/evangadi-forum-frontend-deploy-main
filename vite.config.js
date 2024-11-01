@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: `http://localhost:${process.env.PORT}`, // Your backend server
+        target: `https://evangadi-forum-backend-main.onrender.com`, // Your backend server
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""), // Remove /api from path
       },
